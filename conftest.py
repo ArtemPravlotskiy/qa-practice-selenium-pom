@@ -10,11 +10,11 @@ from webdriver_manager.microsoft import EdgeChromiumDriverManager
 
 def pytest_addoption(parser):
     """Params for pytest command line"""
-    parser.addoption("--browser", action="store", default="false",
+    parser.addoption("--browser", action="store", default="chrome",
                      help="Available browsers: chrome(default), firefox, edge, all")
-    parser.addoption("--parallel", action="store_true", default="false",
+    parser.addoption("--parallel", action="store_true", default=False,
                      help="Run tests in parallel (pytest-xdist)")
-    parser.addoption("--headless", action="store_true", default="false",
+    parser.addoption("--headless", action="store_true", default=False,
                      help="Run in headless mode")
 
 
@@ -32,7 +32,6 @@ def driver(request):
 
         service = ChromeService(executable_path=ChromeDriverManager().install())
         driver = webdriver.Chrome(service=service, options=options)
-
 
     elif browser == "firefox":
         options = webdriver.FirefoxOptions()
