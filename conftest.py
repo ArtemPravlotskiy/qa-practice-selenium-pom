@@ -18,7 +18,7 @@ def pytest_addoption(parser):
                      help="Run in headless mode")
 
 
-@pytest.fixture(scope="function")
+@pytest.fixture(autouse=True)
 def driver(request):
     browser = request.param
     headless = request.config.getoption("headless")
