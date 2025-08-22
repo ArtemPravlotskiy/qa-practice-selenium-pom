@@ -57,6 +57,7 @@ def driver(request):
         raise ValueError(f"Unsupported browser: {browser}")
 
     driver.implicitly_wait(5)
+    request.cls.driver = driver
 
     yield driver
     driver.quit()
