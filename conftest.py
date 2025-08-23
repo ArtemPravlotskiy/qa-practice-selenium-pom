@@ -1,5 +1,6 @@
 import os.path
 from datetime import datetime
+import logging
 
 import pytest
 
@@ -11,6 +12,17 @@ from webdriver_manager.chrome import ChromeDriverManager
 from webdriver_manager.firefox import GeckoDriverManager
 from webdriver_manager.microsoft import EdgeChromiumDriverManager
 
+def pytest_configure(config):
+    level = logging.DEBUG if config.getoption("debug") else logging.INFO
+    logging.basicConfig(
+        level=level,
+        format="%(asctime)s [%(levelname)s] %(message)s",
+        handlers=[
+            logging.FileHandler("test.log", mode="w", encoding="utf-8"),
+            logging.StreamHandler()
+        ]
+    )
+    logging.info("=== START TEST SESSION ===")
 
 def pytest_addoption(parser):
     """Params for pytest command line"""
@@ -20,6 +32,8 @@ def pytest_addoption(parser):
                      help="Run tests in parallel (pytest-xdist)")
     parser.addoption("--headless", action="store_true", default=False,
                      help="Run in headless mode")
+    parser.addoption("--debug", action="store_true", default=False,
+                     help="Enable debug logging")
 
 
 @pytest.fixture(autouse=True)
@@ -28,36 +42,43 @@ def driver(request):
     headless = request.config.getoption("headless")
 
     if browser == "chrome":
+        logging.debug("Start creation Chrome WebDriver")
         options = webdriver.ChromeOptions()
         options.add_argument("--window-size=1920,1080")
 
         if headless:
             options.add_argument("--headless=new")
+            logging.debug("Turn on headless mode")
 
         service = ChromeService(executable_path=ChromeDriverManager().install())
         driver = webdriver.Chrome(service=service, options=options)
 
     elif browser == "firefox":
+        logging.debug("Start creation Firefox WebDriver")
         options = webdriver.FirefoxOptions()
         options.add_argument("--window-size=1920,1080")
 
         if headless:
             options.add_argument("--headless")
+            logging.debug("Turn on headless mode")
 
         service = FirefoxService(executable_path=GeckoDriverManager().install())
         driver = webdriver.Firefox(service=service, options=options)
 
     elif browser == "edge":
+        logging.debug("Start creation Edge WebDriver")
         options = webdriver.EdgeOptions()
         options.add_argument("--window-size=1920,1080")
 
         if headless:
             options.add_argument("--headless=new")
+            logging.debug("Turn on headless mode")
 
         service = EdgeService(executable_path=EdgeChromiumDriverManager().install())
         driver = webdriver.Edge(service=service, options=options)
 
     else:
+        logging.error("Unsupported browser selected")
         raise ValueError(f"Unsupported browser: {browser}")
 
     driver.implicitly_wait(5)
