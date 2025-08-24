@@ -23,7 +23,7 @@ class BasePage:
     # IFRAMES_LINK_LOCATOR = ("link text", "Iframes")
     # POP_UP_LINK_LOCATOR = ("link text", "Pop-Up")
 
-    def __init__(self, driver: WebDriver, timeout: int = 10):
+    def __init__(self, driver: WebDriver, timeout: int = 1):
         self.driver = driver
         self.timeout = timeout
 
