@@ -32,7 +32,7 @@ def pytest_addoption(parser):
                      help="Run tests in parallel (pytest-xdist)")
     parser.addoption("--headless", action="store_true", default=False,
                      help="Run in headless mode")
-    parser.addoption("--debug", action="store_true", default=False,
+    parser.addoption("--debug_logs", action="store_true", default=False,
                      help="Enable debug logging")
 
 
