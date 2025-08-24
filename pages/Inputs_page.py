@@ -1,6 +1,6 @@
 import logging
-
 from pages.Base_page import BasePage
+from selenium.webdriver.common.keys import Keys
 
 logger = logging.getLogger(__name__)
 
@@ -10,13 +10,14 @@ class InputPage(BasePage):
 
     """Locators"""
     INPUT_LINK_LOCATOR = ("link text", "Inputs")
-    TEXT_INPUT_LINK_LOCATOR = ("css selector", "#content > ul > li.tab.active > a")
+    TEXT_INPUT_LINK_LOCATOR = ("css selector", "#content > ul > li:nth-child(1) > a")
     EMAIL_FIELD_LINK_LOCATOR = ("css selector", "#content > ul > li:nth-child(2) > a")
     PASSWORD_FIELD_LINK_LOCATOR = ("css selector", "#content > ul > li:nth-child(3) > a")
     REQUIREMENTS_BUTTON_LOCATOR = ("id", "req_header")
     TEXT_INPUT_LOCATOR = ("id", "id_text_string")
     EMAIL_INPUT_LOCATOR = ("id", "id_email")
     PASSWORD_INPUT_LOCATOR = ("id", "id_password")
+    RESULT_LOCATOR = ("id", "result-text")
 
     def open(self):
         self.driver.get(self.PAGE_URL)
@@ -41,7 +42,7 @@ class InputPage(BasePage):
     def input_text_to_field(self, locator, value: str):
         element = self.find(locator)
         element.clear()
-        element.send_keys(value)
+        element.send_keys(value + Keys.ENTER)
         logger.info(f"Input '{value}' into element {locator} on {self.driver.current_url}")
 
     def input_text(self, line: str):
@@ -52,3 +53,11 @@ class InputPage(BasePage):
 
     def input_password(self, line: str):
         self.input_text_to_field(self.PASSWORD_INPUT_LOCATOR, line)
+
+    def check_result(self, key: str) -> bool:
+        if self.is_element_visible(self.RESULT_LOCATOR):
+            if self.find(self.RESULT_LOCATOR).text == key:
+                logger.info("Check success")
+                return True
+        logger.info("Check wrong")
+        return False
