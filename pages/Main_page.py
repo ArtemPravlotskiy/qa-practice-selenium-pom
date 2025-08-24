@@ -1,6 +1,5 @@
 import logging
 
-from conftest import driver
 from pages.Base_page import BasePage
 
 logger = logging.getLogger(__name__)
