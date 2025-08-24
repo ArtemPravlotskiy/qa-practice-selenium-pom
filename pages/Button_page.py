@@ -27,10 +27,11 @@ class ButtonPage(BasePage):
         logger.info(f"Choose enable select on page: {self.driver.current_url}")
 
     def check_element_label(self, locator, label):
-        element = self.find(locator)
-        text = element.text
+        text = self.find(locator).get_attribute("value")
+        if text is None:
+            text = self.find(locator).text
         if text == label:
             logger.info(f"Element: {locator}, has right label: {label}")
             return True
-        logger.info(f"Element: {locator}, should had label: {label}, but it has: {text}")
+        logger.error(f"Element: {locator}, should had label: {label}, but it has: {text}")
         return False

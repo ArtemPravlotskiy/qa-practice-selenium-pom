@@ -45,5 +45,5 @@ class TestButtonPage:
         assert self.button_page.check_element_label(self.button_page.LIKE_BUTTON_LOCATOR, self.button_page.BUTTON_LABEL), \
             f"Look like button has wrong label"
         self.button_page.find(self.button_page.DISABLED_BUTTON_LINK_LOCATOR).click()
-        assert self.button_page.check_element_label(self.button_page.DISABLED_BUTTON_LOCATOR, self.button_page.BUTTON_LABEL), \
+        assert self.button_page.check_element_label(self.button_page.DISABLED_BUTTON_LOCATOR, "Submit"), \
             f"disabled button has wrong label"
