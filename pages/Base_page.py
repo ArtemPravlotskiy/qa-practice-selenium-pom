@@ -9,6 +9,8 @@ logger = logging.getLogger(__name__)
 
 class BasePage:
 
+    BASE_URL = "https://www.qa-practice.com/"
+
     HOMEPAGE_BUTTON_LOCATOR = ("class name", "active")
     SUB_MENU_LOCATOR = ("class name", "caret")
     # INPUT_LINK_LOCATOR = ("link text", "Inputs")
