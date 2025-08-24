@@ -11,6 +11,7 @@ from selenium.webdriver.firefox.service import Service as FirefoxService
 from webdriver_manager.chrome import ChromeDriverManager
 from webdriver_manager.firefox import GeckoDriverManager
 from webdriver_manager.microsoft import EdgeChromiumDriverManager
+from webdriver_manager.core.driver_cache import DriverCacheManager
 
 def pytest_configure(config):
     level = logging.DEBUG if config.getoption("debug") else logging.INFO
@@ -40,6 +41,7 @@ def pytest_addoption(parser):
 def driver(request):
     browser = request.param
     headless = request.config.getoption("headless")
+    # cache_manager = DriverCacheManager(root_dir="./.wdm_cache")
 
     if browser == "chrome":
         logging.debug("Start creation Chrome WebDriver")
@@ -50,8 +52,9 @@ def driver(request):
             options.add_argument("--headless=new")
             logging.debug("Turn on headless mode")
 
-        service = ChromeService(executable_path=ChromeDriverManager().install())
-        driver = webdriver.Chrome(service=service, options=options)
+        # service = ChromeService(executable_path=ChromeDriverManager(cache_manager=cache_manager).install())
+        driver = webdriver.Chrome(options=options)
+        # driver = webdriver.Chrome(service=service, options=options)
 
     elif browser == "firefox":
         logging.debug("Start creation Firefox WebDriver")
