@@ -9,20 +9,18 @@ logger = logging.getLogger(__name__)
 
 class BasePage:
 
-    BASE_URL = "https://www.qa-practice.com/"
-
     HOMEPAGE_BUTTON_LOCATOR = ("class name", "active")
     SUB_MENU_LOCATOR = ("class name", "caret")
-    INPUT_LINK_LOCATOR = ("link text", "Inputs")
-    BUTTONS_LINK_LOCATOR = ("link text", "Buttons")
-    CHECKBOX_LINK_LOCATOR = ("link text", "Checkbox")
-    SELECT_LINK_LOCATOR = ("link text", "Select")
-    NEW_TAB_LINK_LOCATOR = ("link text", "New tab")
-    TEXT_AREA_LINK_LOCATOR = ("link text", "Text area")
-    ALERTS_LINK_LOCATOR = ("link text", "Alerts")
-    DRAG_AND_DROP_LINK_LOCATOR = ("link text", "Drag and Drop")
-    IFRAMES_LINK_LOCATOR = ("link text", "Iframes")
-    POP_UP_LINK_LOCATOR = ("link text", "Pop-Up")
+    # INPUT_LINK_LOCATOR = ("link text", "Inputs")
+    # BUTTONS_LINK_LOCATOR = ("link text", "Buttons")
+    # CHECKBOX_LINK_LOCATOR = ("link text", "Checkbox")
+    # SELECT_LINK_LOCATOR = ("link text", "Select")
+    # NEW_TAB_LINK_LOCATOR = ("link text", "New tab")
+    # TEXT_AREA_LINK_LOCATOR = ("link text", "Text area")
+    # ALERTS_LINK_LOCATOR = ("link text", "Alerts")
+    # DRAG_AND_DROP_LINK_LOCATOR = ("link text", "Drag and Drop")
+    # IFRAMES_LINK_LOCATOR = ("link text", "Iframes")
+    # POP_UP_LINK_LOCATOR = ("link text", "Pop-Up")
 
     def __init__(self, driver: WebDriver, timeout: int = 10):
         self.driver = driver
@@ -58,12 +56,12 @@ class BasePage:
 
     def homepage(self):
         """Go to homepage"""
-        self.driver.find_element(*self.HOMEPAGE_BUTTON_LOCATOR).click()
+        self.click_with_wait(self.HOMEPAGE_BUTTON_LOCATOR)
         logger.info(f"Go to homepage by click: {self.HOMEPAGE_BUTTON_LOCATOR}")
 
     def open_navigation_sub_menu(self):
         """Open navigation sub-menu"""
-        self.driver.find_element(*self.SUB_MENU_LOCATOR).click()
+        self.click_with_wait(self.SUB_MENU_LOCATOR)
         logger.info(f"Open navigation sub-menu by click: {self.SUB_MENU_LOCATOR}")
 
     def is_element_visible(self, locator):
