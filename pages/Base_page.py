@@ -13,7 +13,6 @@ class BasePage:
 
     HOMEPAGE_BUTTON_LOCATOR = ("class name", "active")
     SUB_MENU_LOCATOR = ("class name", "caret")
-    # INPUT_LINK_LOCATOR = ("link text", "Inputs")
     # BUTTONS_LINK_LOCATOR = ("link text", "Buttons")
     # CHECKBOX_LINK_LOCATOR = ("link text", "Checkbox")
     # SELECT_LINK_LOCATOR = ("link text", "Select")
@@ -83,3 +82,9 @@ class BasePage:
         title = self.driver.title
         logger.info(f"Current page title: {title}")
         return title
+
+    def open_current_page_from_nav(self, link_locator):
+        self.driver.get(self.BASE_URL)
+        self.click_with_wait(self.SUB_MENU_LOCATOR)
+        self.click_with_wait(link_locator)
+        logger.info(f"Open link by button: {link_locator}")
