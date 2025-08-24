@@ -1,5 +1,3 @@
-from pickle import FALSE
-
 from pages.Inputs_page import InputPage
 import pytest
 
@@ -7,12 +5,6 @@ class TestInputPage:
 
     def setup_method(self):
         self.input_page = InputPage(self.driver)
-
-    # def test_title(self):
-    #     self.main_page.open()
-    #     expected_title = "Home Page | QA Practice"
-    #     title = self.main_page.get_page_title()
-    #     assert title == expected_title, "Wrong page title"
 
     def test_open_from_nav_bar(self):
         self.input_page.open()

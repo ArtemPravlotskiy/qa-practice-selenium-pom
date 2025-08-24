@@ -13,7 +13,6 @@ class InputPage(BasePage):
     TEXT_INPUT_LINK_LOCATOR = ("css selector", "#content > ul > li:nth-child(1) > a")
     EMAIL_FIELD_LINK_LOCATOR = ("css selector", "#content > ul > li:nth-child(2) > a")
     PASSWORD_FIELD_LINK_LOCATOR = ("css selector", "#content > ul > li:nth-child(3) > a")
-    REQUIREMENTS_BUTTON_LOCATOR = ("id", "req_header")
     TEXT_INPUT_LOCATOR = ("id", "id_text_string")
     EMAIL_INPUT_LOCATOR = ("id", "id_email")
     PASSWORD_INPUT_LOCATOR = ("id", "id_password")
@@ -34,10 +33,6 @@ class InputPage(BasePage):
     def open_password_field(self):
         self.click_with_wait(self.PASSWORD_FIELD_LINK_LOCATOR)
         logger.info(f"Click on element {self.PASSWORD_FIELD_LINK_LOCATOR} at {self.driver.current_url}")
-
-    def open_requirements(self):
-        self.click_with_wait(self.REQUIREMENTS_BUTTON_LOCATOR)
-        logger.info(f"Click on element {self.REQUIREMENTS_BUTTON_LOCATOR} at {self.driver.current_url}")
 
     def input_text_to_field(self, locator, value: str):
         element = self.find(locator)
