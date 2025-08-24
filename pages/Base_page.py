@@ -13,7 +13,7 @@ class BasePage:
 
     HOMEPAGE_BUTTON_LOCATOR = ("class name", "active")
     SUB_MENU_LOCATOR = ("class name", "caret")
-    # BUTTONS_LINK_LOCATOR = ("link text", "Buttons")
+    REQUIREMENTS_BUTTON_LOCATOR = ("id", "req_header")
     # CHECKBOX_LINK_LOCATOR = ("link text", "Checkbox")
     # SELECT_LINK_LOCATOR = ("link text", "Select")
     # NEW_TAB_LINK_LOCATOR = ("link text", "New tab")
@@ -88,3 +88,7 @@ class BasePage:
         self.click_with_wait(self.SUB_MENU_LOCATOR)
         self.click_with_wait(link_locator)
         logger.info(f"Open link by button: {link_locator}")
+
+    def open_requirements(self):
+        self.click_with_wait(self.REQUIREMENTS_BUTTON_LOCATOR)
+        logger.info(f"Click on element {self.REQUIREMENTS_BUTTON_LOCATOR} at {self.driver.current_url}")
