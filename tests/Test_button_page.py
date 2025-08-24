@@ -36,3 +36,14 @@ class TestButtonPage:
 
         assert self.button_page.is_element_visible(self.button_page.RESULT_LOCATOR), \
             "Error click disable button"
+
+    def test_buttons_have_right_labels(self):
+        self.button_page.open()
+        assert self.button_page.check_element_label(self.button_page.SIMPLE_BUTTON_LOCATOR, self.button_page.BUTTON_LABEL), \
+            f"Simple button has wrong label"
+        self.button_page.find(self.button_page.LIKE_BUTTON_LINK_LOCATOR).click()
+        assert self.button_page.check_element_label(self.button_page.LIKE_BUTTON_LOCATOR, self.button_page.BUTTON_LABEL), \
+            f"Look like button has wrong label"
+        self.button_page.find(self.button_page.DISABLED_BUTTON_LINK_LOCATOR).click()
+        assert self.button_page.check_element_label(self.button_page.DISABLED_BUTTON_LOCATOR, self.button_page.BUTTON_LABEL), \
+            f"disabled button has wrong label"

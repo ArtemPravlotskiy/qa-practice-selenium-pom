@@ -5,6 +5,7 @@ logger = logging.getLogger(__name__)
 
 class ButtonPage(BasePage):
     PAGE_URL = "https://www.qa-practice.com/elements/button/simple"
+    BUTTON_LABEL = "Click"
 
     """Locators"""
     SIMPLE_BUTTON_LINK_LOCATOR = ("css selector", "#content > ul > li:nth-child(1) > a")
@@ -24,3 +25,12 @@ class ButtonPage(BasePage):
     def choose_select_enable(self):
         self.find(self.SELECT_ENABLE_LOCATOR).click()
         logger.info(f"Choose enable select on page: {self.driver.current_url}")
+
+    def check_element_label(self, locator, label):
+        element = self.find(locator)
+        text = element.text
+        if text == label:
+            logger.info(f"Element: {locator}, has right label: {label}")
+            return True
+        logger.info(f"Element: {locator}, should had label: {label}, but it has: {text}")
+        return False
